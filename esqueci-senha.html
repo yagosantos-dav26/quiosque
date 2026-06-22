@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Senha - Quiosque</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .mensagem-status { margin-top: 15px; padding: 10px; border-radius: 5px; font-size: 0.95rem; font-weight: bold; display: none; text-align: center; }
+        .status-sucesso { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .status-erro { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="logo.png" alt="Logo do Quiosque" class="logo">
+        <nav>
+            <a href="quiosque.html">Home</a>
+            <a href="cardapio.html">Cardápio</a>
+            <a href="contato.html">Contato</a>
+            <a href="pedidos.html">Pedidos</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="pedidos-container">
+            <div class="pedido-card">
+                <h2>Esqueceu a senha?</h2>
+                <p>Insira seu e-mail para receber as instruções de recuperação.</p>
+                <form id="form-esqueci" class="form-quiosque">
+                    <div class="input-group">
+                        <label for="email">E-mail cadastrado</label>
+                        <input type="email" id="email" placeholder="seu@email.com" required>
+                    </div>
+                    <button type="submit" class="btn-enviar">Enviar Link</button>
+                </form>
+
+                <div id="status-esqueci" class="mensagem-status"></div>
+
+                <div class="form-footer">
+                    <p>Lembrou? <a href="login.html">Voltar para Login</a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Nosso Quiosque. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = "https://bdlqpzfzoczouohquwpt.supabase.co";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkbHFwemZ6b2N6b3VvaHF1d3B0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4MDExNzEsImV4cCI6MjA5MjM3NzE3MX0.6C";
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        const formEsqueci = document.getElementById('form-esqueci');
+        const statusEsqueci = document.getElementById('status-esqueci');
+
+        formEsqueci.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            statusEsqueci.style.display = "none";
+
+            const emailDigitado = document.getElementById('email').value;
+
+            const { error } = await supabaseClient.auth.resetPasswordForEmail(emailDigitado, {
+                redirectTo: window.location.origin + '/login.html', // Retorna o usuário para o login após redefinir
+            });
+
+            if (error) {
+                statusEsqueci.innerText = "Erro ao enviar e-mail: " + error.message;
+                statusEsqueci.className = "mensagem-status status-erro";
+            } else {
+                statusEsqueci.innerText = "Se o e-mail estiver cadastrado, um link de recuperação foi enviado!";
+                statusEsqueci.className = "mensagem-status status-sucesso";
+                formEsqueci.reset();
+            }
+            statusEsqueci.style.display = "block";
+        });
+    </script>
+</body>
+</html>

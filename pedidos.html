@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faça seu Pedido - Quiosque</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .mensagem-status { margin-top: 15px; padding: 10px; border-radius: 5px; font-size: 0.95rem; font-weight: bold; display: none; text-align: center; }
+        .status-sucesso { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .status-erro { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .cardapio-selecao { text-align: left; margin: 20px 0; }
+        .checkbox-group { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 1.05rem; cursor: pointer; }
+        .checkbox-group input { width: 18px; height: 18px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="logo.png" alt="Logo do Quiosque" class="logo">
+        <nav>
+            <a href="quiosque.html">Home</a>
+            <a href="cardapio.html">Cardápio</a>
+            <a href="contato.html">Contato</a>
+            <a href="pedidos.html" class="active">Pedidos</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="pedidos-container">
+            <div class="pedido-card">
+                <h2>Monte seu Pedido</h2>
+                <p>Marque os itens desejados para nos enviar:</p>
+                
+                <form id="form-itens-pedido">
+                    <div class="cardapio-selecao">
+                        <h3 style="margin: 15px 0 10px 0; color: #ff9900; font-size: 1.2rem; border-bottom: 1px solid #ccc; padding-bottom: 5px;">🌭 Cachorros-Quentes</h3>
+                        <label class="checkbox-group">
+                            <input type="checkbox" name="item-quiosque" value="Cachorro-Quente Simples (R$ 6,00)"> 
+                            Simples - R$ 6,00 <small style="color: #666; margin-left: 5px;">(Pão, salsicha, molho e batata palha)</small>
+                        </label>
+                        <label class="checkbox-group">
+                            <input type="checkbox" name="item-quiosque" value="Cachorro-Quente Completo (R$ 10,00)"> 
+                            Completo - R$ 10,00 <small style="color: #666; margin-left: 5px;">(Pão, salsicha, molho, milho, ervilha, batata palha e maionese)</small>
+                        </label>
+                        <label class="checkbox-group">
+                            <input type="checkbox" name="item-quiosque" value="Cachorro-Quente Especial da Casa (R$ 12,00)"> 
+                            Especial da Casa - R$ 12,00 <small style="color: #666; margin-left: 5px;">(Pão, salsicha, molho especial, queijo, presunto, milho, ervilha, batata palha e maionese)</small>
+                        </label>
+
+                        <h3 style="margin: 25px 0 10px 0; color: #ff9900; font-size: 1.2rem; border-bottom: 1px solid #ccc; padding-bottom: 5px;">🍢 Churrasquinhos</h3>
+                        <label class="checkbox-group">
+                            <input type="checkbox" name="item-quiosque" value="Churrasquinho de Carne (R$ 8,00)"> 
+                            Carne - R$ 8,00 <small style="color: #666; margin-left: 5px;">(Suculento espetinho de carne bovina)</small>
+                        </label>
+                        <label class="checkbox-group">
+                            <input type="checkbox" name="item-quiosque" value="Churrasquinho de Frango (R$ 7,00)"> 
+                            Frango - R$ 7,00 <small style="color: #666; margin-left: 5px;">(Churrasquinho de frango temperado na medida)</small>
+                        </label>
+                        <label class="checkbox-group">
+                            <input type="checkbox" name="item-quiosque" value="Churrasquinho Misto (R$ 9,00)"> 
+                            Misto - R$ 9,00 <small style="color: #666; margin-left: 5px;">(Carne e frango no espetinho)</small>
+                        </label>
+                        <label class="checkbox-group">
+                            <input type="checkbox" name="item-quiosque" value="Churrasquinho com Queijo (R$ 10,00)"> 
+                            Com Queijo - R$ 10,00 <small style="color: #666; margin-left: 5px;">(Churrasquinho de carne com queijo derretido)</small>
+                        </label>
+
+                        <h3 style="margin: 25px 0 10px 0; color: #ff9900; font-size: 1.2rem; border-bottom: 1px solid #ccc; padding-bottom: 5px;">🥤 Bebidas</h3>
+                        <label class="checkbox-group">
+                            <input type="checkbox" name="item-quiosque" value="Coca-Cola Lata"> Coca-Cola Lata 🟥
+                        </label>
+                        <label class="checkbox-group">
+                            <input type="checkbox" name="item-quiosque" value="Guaraná Antarctica Lata"> Guaraná Antarctica Lata 🟩
+                        </label>
+                        <label class="checkbox-group">
+                            <input type="checkbox" name="item-quiosque" value="Suco Natural / Citrus"> Suco Natural / Copo 🟧
+                        </label>
+                    </div>
+                    <button type="submit" class="btn-enviar">Enviar Pedido</button>
+                </form>
+                <div id="status-pedido" class="mensagem-status"></div>
+            </div>
+
+            <div class="pedido-card opcoes-box">
+                <h2>Prefere ligar?</h2>
+                <p>Escolha a melhor opção para falar com o balcão:</p>
+                <div class="opcoes-links">
+                    <a href="cardapio.html" class="btn-opcao"><span class="icone">🍽️</span><div><strong>Ver Cardápio</strong><small>Olhar opções completas</small></div></a>
+                    <a href="tel:+5500000000000" class="btn-opcao destaque-tel"><span class="icone">📞</span><div><strong>Pedir por Telefone</strong><small>Clique para ligar agora</small></div></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Nosso Quiosque. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = "https://bdlqpzfzoczouohquwpt.supabase.co";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkbHFwemZ6b2N6b3VvaHF1d3B0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0NDMzNTMsImV4cCI6MjA5MjAxOTM1M30.SYXW90OgDkLQGWI5FEe1GuZlpI4VDy14z6qPO_rl4Q8";
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        const formPedido = document.getElementById('form-itens-pedido');
+        const statusPedido = document.getElementById('status-pedido');
+
+        formPedido.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            statusPedido.style.display = "none";
+
+            const checkboxes = document.querySelectorAll('input[name="item-quiosque"]:checked');
+            if (checkboxes.length === 0) {
+                statusPedido.innerText = "Selecione pelo menos um item!";
+                statusPedido.className = "mensagem-status status-erro";
+                statusPedido.style.display = "block";
+                return;
+            }
+
+            const itens = [];
+            checkboxes.forEach(cb => itens.push(cb.value));
+
+            // Verifica se tem algum usuário logado no navegador
+            const sessionUser = (await supabaseClient.auth.getSession()).data.session?.user?.email || "Cliente do Balcão (Anônimo)";
+
+            const { error } = await supabaseClient.from('historico_pedidos').insert([
+                { cliente_email: sessionUser, tipo_acao: 'Pedido Solicitado', detalhes: 'Itens: ' + itens.join(', ') }
+            ]);
+
+            if (error) {
+                statusPedido.innerText = "Erro ao enviar: " + error.message;
+                statusPedido.className = "mensagem-status status-erro";
+            } else {
+                statusPedido.innerText = "Pedido enviado com sucesso!";
+                statusPedido.className = "mensagem-status status-sucesso";
+                formPedido.reset();
+            }
+            statusPedido.style.display = "block";
+        });
+    </script>
+</body>
+</html>

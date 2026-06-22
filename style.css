@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    flex-wrap: wrap; /* Permite quebrar linha em telas muito pequenas */
+}
+
+.logo {
+    height: 60px;
+    width: auto;
+}
+
+/* Ajuste na navegação para desktop */
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+nav a:hover {
+    color: #ff6600;
+}
+
+/* Garante que o conteúdo principal empurre o footer para o final da tela */
+main {
+    flex: 1;
+    padding: 40px 5%;
+    text-align: center;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: auto; /* Faz o footer grudar no final mesmo com pouca página */
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: inline-block;
+}
+
+/* ================= REGRA PARA CELULARES E TABLETS (Até 768px) ================= */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column; /* Alinha logo e menu um embaixo do outro */
+        gap: 15px;
+        text-align: center;
+        padding: 15px 2%;
+    }
+
+    nav {
+        margin: 0;
+        padding: 0;
+        justify-content: center;
+        flex-wrap: wrap; /* Se os links forem grandes, eles quebram linha */
+        gap: 15px;       /* Espaçamento uniforme entre os links no celular */
+    }
+
+    nav a {
+        margin-left: 0;  /* Remove a margem esquerda para não desalinhardos no centro */
+        font-size: 1rem;
+        padding: 5px 10px;
+    }
+
+    main {
+        padding: 20px 5%; /* Reduz o espaçamento interno nas laterais no celular */
+    }
+}
